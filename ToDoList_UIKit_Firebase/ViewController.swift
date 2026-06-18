@@ -38,6 +38,20 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
     }
+    
+    func setupNavigationBar() {
+        title = "할 일 목록"
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(didTapAddButton)
+        )
+    }
+    
+    @objc func didTapAddButton() {
+        
+    }
 }
 
 extension ViewController: UITableViewDataSource{
