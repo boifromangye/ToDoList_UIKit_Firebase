@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     
     private let tableView = UITableView()
-    let tasks = [
+    var tasks = [
         "Do laundry", "Do assignments", "Make a reservation",
         "Drink coffee", "Go to the gym", "Take a walk",
         "Read a book", "Watch a movie", "Make BEC", "Send an email"
@@ -19,8 +19,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .systemBackground
         setUpTableView()
+        setupNavigationBar()
     }
     
     func setUpTableView() {
@@ -51,12 +53,14 @@ class ViewController: UIViewController {
     
     @objc func didTapAddButton() {
         let vc = AddTaskViewController()
+        vc.delegate = self
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 extension ViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        return tasks.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
@@ -68,5 +72,12 @@ extension ViewController: UITableViewDataSource{
 extension ViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension ViewController: AddTaskViewControllerDelegate {
+    func onSave(newTask: String) {
+        tasks.append(newTask)
+        tableView.reloadData()
     }
 }
