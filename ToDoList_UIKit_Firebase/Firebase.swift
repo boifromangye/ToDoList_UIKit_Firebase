@@ -12,7 +12,7 @@ struct TaskItem {
     let title: String
     let check: Bool
 }
-
+// 전역 함수, 변수에서 클래스로 scope 제한 하기
 let db = Firestore.firestore()
 
 func addTask(title: String) async {
