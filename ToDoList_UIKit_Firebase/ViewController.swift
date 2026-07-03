@@ -23,6 +23,7 @@ class ViewController: UIViewController {
 
     func loadTasks() {
         Task {
+            // main thread 로 동작하도록 수정필요. 왜 수정해야하는지 확인 후 설명.
             tasks = await getTasks()
             tableView.reloadData()
         }
